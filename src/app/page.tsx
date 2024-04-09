@@ -65,7 +65,7 @@ export default function Home() {
             <div className={cn(styles.playlistTitle__col, styles.col01)}>Трек</div>
             <div className={cn(styles.playlistTitle__col, styles.col02)}>Исполнитель</div>
             <div className={cn(styles.playlistTitle__col, styles.col03)}>Альбом</div>
-            <div className={cn(styles.playlistTitle__col, styles.col01)}>
+            <div className={cn(styles.playlistTitle__col, styles.col04)}>
               <svg className={styles.playlistTitle__svg}>
                 <use xlinkHref="img/icon/sprite.svg#icon-watch" />
               </svg>
