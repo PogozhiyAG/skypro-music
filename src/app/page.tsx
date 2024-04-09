@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.css";
 import cn from 'classnames'
@@ -20,19 +21,19 @@ export default function Home() {
         <div className={cn(styles.nav__menu, styles.menu)}>
           <ul className={styles.menu__list}>
             <li className={styles.menu__item}>
-              <a href="#" className={styles.menu__link}>
+              <Link href="/" className={styles.menu__link}>
                 Главное
-              </a>
+              </Link>
             </li>
             <li className={styles.menu__item}>
-              <a href="#" className={styles.menu__link}>
+              <Link href="/" className={styles.menu__link}>
                 Мой плейлист
-              </a>
+              </Link>
             </li>
             <li className={styles.menu__item}>
-              <a href="/signin" className={styles.menu__link}>
+              <Link href="/signin" className={styles.menu__link}>
                 Войти
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -81,20 +82,20 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Guilt <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Nero
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Welcome Reality
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -113,20 +114,20 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Elektro <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Dynoro, Outwork, Mr. Gee
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Elektro
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -145,20 +146,20 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       I’m Fire <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Ali Bakgor
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     I’m Fire
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -177,21 +178,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Non Stop
                       <span className={styles.track__titleSpan}>(Remix)</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Стоункат, Psychopath
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Non Stop
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -210,21 +211,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Run Run
                       <span className={styles.track__titleSpan}>(feat. AR/CO)</span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Jaded, Will Clarke, AR/CO
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Run Run
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -243,23 +244,23 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Eyes on Fire
                       <span className={styles.track__titleSpan}>
                         (Zeds Dead Remix)
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Blue Foundation, Zeds Dead
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Eyes on Fire
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -278,23 +279,23 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Mucho Bien
                       <span className={styles.track__titleSpan}>
                         (Hi Profile Remix)
                       </span>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     HYBIT, Mr. Black, Offer Nissim, Hi Profile
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Mucho Bien
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -313,21 +314,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -346,21 +347,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -379,21 +380,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -412,21 +413,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -445,21 +446,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -478,21 +479,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -511,21 +512,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Knives n Cherries
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     minthaze
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Captivating
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -544,21 +545,21 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       How Deep Is Your Love
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Calvin Harris, Disciples
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     How Deep Is Your Love
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -577,20 +578,20 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       Morena <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://">
+                  <Link className={styles.track__authorLink} href="/">
                     Tom Boxer
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://">
+                  <Link className={styles.track__albumLink} href="/">
                     Soundz Made in Romania
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -609,16 +610,16 @@ export default function Home() {
                     </svg>
                   </div>
                   <div className={styles.track__titleText}>
-                    <a className={styles.track__titleLink} href="http://">
+                    <Link className={styles.track__titleLink} href="/">
                       <span className={styles.track__titleSpan} />
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className={styles.track__author}>
-                  <a className={styles.track__authorLink} href="http://" />
+                  <Link className={styles.track__authorLink} href="/" />
                 </div>
                 <div className={styles.track__album}>
-                  <a className={styles.track__albumLink} href="http://" />
+                  <Link className={styles.track__albumLink} href="/" />
                 </div>
                 <div className={styles.track__time}>
                   <svg className={styles.track__timeSvg}>
@@ -643,34 +644,34 @@ export default function Home() {
         <div className={styles.sidebar__block}>
           <div className={styles.sidebar__list}>
             <div className={styles.sidebar__item}>
-              <a className={styles.sidebar__link} href="#">
+              <Link className={styles.sidebar__link} href="/">
                 <Image
                   className={styles.sidebar__img}
                   src="/img/playlist01.png"
                   alt="day's playlist"
                   width={250} height={150}
                 />
-              </a>
+              </Link>
             </div>
             <div className={styles.sidebar__item}>
-              <a className={styles.sidebar__link} href="#">
+              <Link className={styles.sidebar__link} href="/">
                 <Image
                   className={styles.sidebar__img}
                   src="/img/playlist02.png"
                   alt="day's playlist"
                   width={250} height={150}
                 />
-              </a>
+              </Link>
             </div>
             <div className={styles.sidebar__item}>
-              <a className={styles.sidebar__link} href="#">
+              <Link className={styles.sidebar__link} href="/">
                 <Image
                   className={styles.sidebar__img}
                   src="/img/playlist03.png"
                   alt="day's playlist"
                   width={250} height={150}
                 />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -716,14 +717,14 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className={styles.trackPlay__author}>
-                  <a className={styles.trackPlay__authorLink} href="http://">
+                  <Link className={styles.trackPlay__authorLink} href="/">
                     Ты та...
-                  </a>
+                  </Link>
                 </div>
                 <div className={styles.trackPlay__album}>
-                  <a className={styles.trackPlay__albumLink} href="http://">
+                  <Link className={styles.trackPlay__albumLink} href="/">
                     Баста
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className={styles.trackPlay__likeDis}>
