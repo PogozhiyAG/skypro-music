@@ -30,7 +30,7 @@ export default function Home() {
               </a>
             </li>
             <li className={styles.menu__item}>
-              <a href="../signin.html" className={styles.menu__link}>
+              <a href="/signin" className={styles.menu__link}>
                 Войти
               </a>
             </li>
