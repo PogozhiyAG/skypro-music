@@ -326,11 +326,13 @@
   text-align: end;
 }
 
+/* 
 .playlist__item {
   width: 100%;
   display: block;
   margin-bottom: 12px;
 }
+
 
 .playlist__track {
   display: -webkit-box;
@@ -459,7 +461,7 @@
   color: #696969;
   width: 40px;
   display: inline-block;
-}
+} */
 
 .sidebar__personal {
   display: -webkit-box;
