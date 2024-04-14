@@ -10,28 +10,20 @@ import { DataContext } from "@/context/DataContext";
 import { useFilterItem } from "@/hooks/useFilterItem";
 import { FilterItem } from "@/components/FilterItem/FilterItem";
 
-// const tracks: TrackInfo[] = [
-//   {
-//     id: 1,
-//     name: "Song 01",
-//     album: "The Main Things",
-//     author: "Songerinio",
-//     duration_in_seconds: 340,
-//     genre: "Funky Jazz",
-//     release_date : new Date("01.01.20019"),
-//     track_file: ""
-//   },
-//   {
-//     id: 2,
-//     name: "Song 02",
-//     album: "The Main Things",
-//     author: "Songerinio",
-//     duration_in_seconds: 206,
-//     genre: "Funky Jazz",
-//     release_date : new Date("09.01.20019"),
-//     track_file: ""
-//   },
-// ];
+
+
+enum DateSortType{
+  Default = 'По умолчанию',
+  NewFirst = 'Сначала новые',
+  OldFirst = 'Сначала старые'
+}
+
+const releaseDateSortOptions: DateSortType[] = [
+  DateSortType.Default,
+  DateSortType.NewFirst,
+  DateSortType.OldFirst
+];
+
 
 export default function Home() {
   const [errorMessage, setErrorMessage] = useState();
@@ -45,11 +37,9 @@ export default function Home() {
     sortFunction: (a, b) => a.value.localeCompare(b.value)
   });
 
-  const playlistFilterYear = useFilterItem<TrackInfo, number>({
-    dataSet: tracks,
-    valueFunction: track => track.release_date ? new Date(track.release_date).getFullYear() : -1,
-    formatFunction: value => value === -1 ? '<Не указано>' : `${value}`,
-    sortFunction: (a, b) => b.value - a.value
+  const playlistReleaseDateSort = useFilterItem<DateSortType, DateSortType>({
+    dataSet: releaseDateSortOptions,
+    valueFunction: option => option,        
   });
 
   const playlistFilterGenre = useFilterItem<TrackInfo, string>({
@@ -75,12 +65,18 @@ export default function Home() {
 
   useEffect(() => {
     const filtered = tracks.filter(t => 
-         playlistFilterAlbum.isFit(t)
-      && playlistFilterYear.isFit(t)
+         playlistFilterAlbum.isFit(t)      
       && playlistFilterGenre.isFit(t)
     );
-    setFilteredTracks(filtered)
-  }, [playlistFilterAlbum.values, playlistFilterYear.values, playlistFilterGenre.values, tracks]);
+
+    const sortType = playlistReleaseDateSort.values.find(v => v.checked);
+    switch (sortType?.value) {
+      case DateSortType.NewFirst: filtered.sort((a: TrackInfo, b: TrackInfo) => new Date(a.release_date).getTime() - new Date(b.release_date).getTime()); break;
+      case DateSortType.OldFirst: filtered.sort((a: TrackInfo, b: TrackInfo) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime()); break;
+    }
+
+    setFilteredTracks(filtered);
+  }, [playlistFilterAlbum.values, playlistReleaseDateSort.values, playlistFilterGenre.values, tracks]);
 
 
   return (
@@ -134,10 +130,10 @@ export default function Home() {
         <div className={cn(styles.centerblock__filter, styles.filter)}>
           <div className={styles.filter__title}>Искать по:</div>
           <FilterItem filterItem={playlistFilterAlbum} caption="исполнителю" multiple/>
-          <FilterItem filterItem={playlistFilterYear} caption="году выпуска" multiple/>
+          <FilterItem filterItem={playlistReleaseDateSort} caption="году выпуска" />
           <FilterItem filterItem={playlistFilterGenre} caption="жанру" multiple/>
         </div>
-        
+
         <div className={cn(styles.centerblock__content, styles.content__playlist)}>
           <div className={styles.content__title}>
             <div className={cn(styles.playlistTitle__col, styles.col01)}>Трек</div>
