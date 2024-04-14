@@ -45,11 +45,17 @@ export const FilterItem = <T, F >({filterItem, caption, multiple}: FilterItemPro
         setIsOpen(false);
     }
 
+
+
     const selectedValues = filterItem.values.filter(v => v.checked).map(v => v.value);
+
+    const hasSelection =  filterItem.values.filter(v => v.checked).length > 0;
+
+    const filterCaptionClasses = cn(styles.filter__caption, hasSelection ? styles.filter__caption_active : '');
 
     return (
         <div>
-            <div className={styles.filter__caption} onClick={handleCaptionClick}>{caption}</div>
+            <div className={filterCaptionClasses} onClick={handleCaptionClick}>{caption}</div>
             {
                 isOpen &&
                 <div className={styles.dropdown_container}>

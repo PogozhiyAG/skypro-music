@@ -1,3 +1,5 @@
+
+
 .filter__caption {
     font-style: normal;
     font-weight: 400;
@@ -8,6 +10,18 @@
     padding: 6px 20px;
     cursor: pointer;
 }
+
+.filter__caption_active {
+    color: #AD61FF;
+    border-color:  #AD61FF;
+}
+
+.filter__caption:hover{
+    color: #D9B6FF;
+    border-color:  #D9B6FF;
+}
+
+
 
 .dropdown_container{    
     position: relative;
