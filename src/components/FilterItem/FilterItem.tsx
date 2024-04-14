@@ -10,7 +10,7 @@ export type FilterItemProps<T, F> = {
     multiple?: boolean
 }
 
-export const FilterItem = <T, F, >({filterItem, caption, multiple}: FilterItemProps<T, F>) => {
+export const FilterItem = <T, F >({filterItem, caption, multiple}: FilterItemProps<T, F>) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -45,6 +45,7 @@ export const FilterItem = <T, F, >({filterItem, caption, multiple}: FilterItemPr
         setIsOpen(false);
     }
 
+    const selectedValues = filterItem.values.filter(v => v.checked).map(v => v.value);
 
     return (
         <div>
@@ -53,8 +54,8 @@ export const FilterItem = <T, F, >({filterItem, caption, multiple}: FilterItemPr
                 isOpen &&
                 <div className={styles.dropdown_container}>
                     <div className={styles.select_container}>
-                        <select ref={selectRef} className={styles.select} multiple onChange={handleSelectChange} onBlur={handleSelectBlur}>            
-                            {filterItem.values.map(v => <option  key={v.value} value={v.value} selected={v.checked} >{v.caption}</option>)}                
+                        <select ref={selectRef} value={selectedValues} className={styles.select} multiple onChange={handleSelectChange} onBlur={handleSelectBlur}>            
+                            {filterItem.values.map(v => <option  key={v.value} value={v.value} >{v.caption}</option>)}                
                         </select>
                     </div>
                 </div>
