@@ -14,16 +14,16 @@ export type FilterItemValue<F> = {
 }
 
 
-export interface FilterItemHookResult<T, F> {
+export interface FilterItemHookResult<T, F extends string | number > {
     values: FilterItemValue<F>[],
     updateValues:  () => void,
     isFit: (item: T) => boolean
 }
 
 
-export type FilterItemHook<T, F> = (options: FilterItemOptions<T, F>) => FilterItemHookResult<T, F>;
+export type FilterItemHook<T, F extends string | number > = (options: FilterItemOptions<T, F>) => FilterItemHookResult<T, F>;
 
-export const useFilterItem = <T, F>(options: FilterItemOptions<T, F>): FilterItemHookResult<T, F> => {
+export const useFilterItem = <T, F extends string | number >(options: FilterItemOptions<T, F>): FilterItemHookResult<T, F> => {
     const [values, setValues] = useState<FilterItemValue<F>[]>([]);
 
     const updateValues = () => setValues([...values]);
