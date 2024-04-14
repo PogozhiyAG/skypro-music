@@ -2,6 +2,7 @@
 import Link from "next/link";
 import styles from "./Player.module.css";
 import cn from 'classnames'
+import { VolumeBar } from "../VolumeBar/VolumeBar";
 
 export const Player = () => {
     return (
@@ -69,22 +70,7 @@ export const Player = () => {
                 </div>
               </div>
             </div>
-            <div className={cn(styles.bar__volumeBlock, styles.volume)}>
-              <div className={styles.volume__content}>
-                <div className={styles.volume__image}>
-                  <svg className={styles.volume__svg}>
-                    <use xlinkHref="img/icon/sprite.svg#icon-volume" />
-                  </svg>
-                </div>
-                <div className={styles.volume__progress}>
-                  <input
-                    className={styles.volume__progressLine}
-                    type="range"
-                    name="range"
-                  />
-                </div>
-              </div>
-            </div>
+            <VolumeBar/>
           </div>
         </div>
       </div>
