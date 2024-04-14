@@ -172,6 +172,7 @@
   -ms-flex-align: center;
   align-items: center;
   margin-bottom: 51px;
+  gap: 15px;
 }
 
 .centerblock__content {
@@ -250,7 +251,7 @@
   margin-right: 15px;
 }
 
-.filter__button {
+/* .filter__button {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -258,7 +259,7 @@
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
-}
+} */
 
 .filter__button:not(:last-child) {
   margin-right: 10px;

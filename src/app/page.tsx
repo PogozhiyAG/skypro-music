@@ -1,34 +1,88 @@
+"use client"
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.css";
 import cn from 'classnames'
 import { TrackInfo } from "@/types/TrackInfo";
 import { PlaylistItem } from "@/components/PlaylistItem/PlaylistItem";
+import { useContext, useEffect, useState } from "react";
+import { DataContext } from "@/context/DataContext";
+import { useFilterItem } from "@/hooks/useFilterItem";
+import { FilterItem } from "@/components/FilterItem/FilterItem";
 
-const tracks: TrackInfo[] = [
-  {
-    id: 1,
-    name: "Song 01",
-    album: "The Main Things",
-    author: "Songerinio",
-    duration_in_seconds: 340,
-    genre: "Funky Jazz",
-    release_date : new Date("01.01.20019"),
-    track_file: ""
-  },
-  {
-    id: 2,
-    name: "Song 02",
-    album: "The Main Things",
-    author: "Songerinio",
-    duration_in_seconds: 206,
-    genre: "Funky Jazz",
-    release_date : new Date("09.01.20019"),
-    track_file: ""
-  },
-];
+// const tracks: TrackInfo[] = [
+//   {
+//     id: 1,
+//     name: "Song 01",
+//     album: "The Main Things",
+//     author: "Songerinio",
+//     duration_in_seconds: 340,
+//     genre: "Funky Jazz",
+//     release_date : new Date("01.01.20019"),
+//     track_file: ""
+//   },
+//   {
+//     id: 2,
+//     name: "Song 02",
+//     album: "The Main Things",
+//     author: "Songerinio",
+//     duration_in_seconds: 206,
+//     genre: "Funky Jazz",
+//     release_date : new Date("09.01.20019"),
+//     track_file: ""
+//   },
+// ];
 
 export default function Home() {
+  const [errorMessage, setErrorMessage] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const {tracks, loadTracks} = useContext(DataContext);
+  const [filteredTracks, setFilteredTracks] = useState([]);
+  
+  const playlistFilterAlbum = useFilterItem<TrackInfo, string>({
+    dataSet: tracks,
+    valueFunction: track => track.author,
+    sortFunction: (a, b) => a.value.localeCompare(b.value)
+  });
+
+  const playlistFilterYear = useFilterItem<TrackInfo, number>({
+    dataSet: tracks,
+    valueFunction: track => track.release_date ? new Date(track.release_date).getFullYear() : -1,
+    formatFunction: value => value === -1 ? '<Не указано>' : `${value}`,
+    sortFunction: (a, b) => b.value - a.value
+  });
+
+  const playlistFilterGenre = useFilterItem<TrackInfo, string>({
+    dataSet: tracks,
+    valueFunction: track => track.genre,
+    sortFunction: (a, b) => a.value.localeCompare(b.value)
+  });
+
+  useEffect(() => {
+      const work = async () => {
+          try{
+              await loadTracks();
+          } catch(error){
+              setErrorMessage(error)
+          }
+          
+          setIsLoading(false);
+      }
+
+      work();        
+  }, []);
+
+
+  useEffect(() => {
+    const filtered = tracks.filter(t => 
+         playlistFilterAlbum.isFit(t)
+      && playlistFilterYear.isFit(t)
+      && playlistFilterGenre.isFit(t)
+    );
+    setFilteredTracks(filtered)
+  }, [playlistFilterAlbum.values, playlistFilterYear.values, playlistFilterGenre.values, tracks]);
+
+
   return (
     <div className={styles.wrapper}>
   <div className={styles.container}>
@@ -75,16 +129,15 @@ export default function Home() {
           />
         </div>
         <h2 className={styles.centerblock__h2}>Треки</h2>
+        
+        
         <div className={cn(styles.centerblock__filter, styles.filter)}>
           <div className={styles.filter__title}>Искать по:</div>
-          <div className={cn(styles.filter__button)}>
-            исполнителю
-          </div>
-          <div className={cn(styles.filter__button)}>
-            году выпуска
-          </div>
-          <div className={cn(styles.filter__button)}>жанру</div>
+          <FilterItem filterItem={playlistFilterAlbum} caption="исполнителю" multiple/>
+          <FilterItem filterItem={playlistFilterYear} caption="году выпуска" multiple/>
+          <FilterItem filterItem={playlistFilterGenre} caption="жанру" multiple/>
         </div>
+        
         <div className={cn(styles.centerblock__content, styles.content__playlist)}>
           <div className={styles.content__title}>
             <div className={cn(styles.playlistTitle__col, styles.col01)}>Трек</div>
@@ -97,12 +150,8 @@ export default function Home() {
             </div>
           </div>
           <div className={cn(styles.content__playlist, styles.playlist)}>
-            {tracks.map(t => <PlaylistItem key={t.id} track={t}/>)}
-           
-           
 
-
-
+            {filteredTracks.map(t => <PlaylistItem key={t.id} track={t}/>)}
           </div>
         </div>
       </div>
