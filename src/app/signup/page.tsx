@@ -1,10 +1,17 @@
-
+"use client"
 import Image from "next/image";
 import styles from "./page.module.css";
 import cn from "classnames"
 import Link from "next/link";
+import { ModalInput } from "@/components/ModalInput/ModalInput";
+import { useState } from "react";
+import { ButtonStyle, StyledButton } from "@/components/StyledButton/StyledButton";
 
 export default function SignUp() {
+    const [email, setEmail] = useState<string>();
+    const [password, setPassword] = useState<string>();
+    const [repeatPassword, setRepeatPassword] = useState<string>();
+
     return(
         <div className={styles.wrapper}>
             <div className={styles.containerSignup}>
@@ -15,27 +22,13 @@ export default function SignUp() {
                             <Image src="/img/logo_modal.png" alt="logo" width={140} height={21}/>
                         </div>
                     </Link>
-                    <input
-                        className={cn(styles.modal__input, styles.login)}
-                        type="text"
-                        name="login"
-                        placeholder="Почта"
-                    />
-                    <input
-                        className={cn(styles.modal__input, styles.passwordFirst)}
-                        type="password"
-                        name="password"
-                        placeholder="Пароль"
-                    />
-                    <input
-                        className={cn(styles.modal__input, styles.passwordDouble)}
-                        type="password"
-                        name="password"
-                        placeholder="Повторите пароль"
-                    />
-                    <button className={styles.modal__btnSignupEnt}>
+                    <ModalInput placeholder="Почта" value={email} onChange={e => setEmail(e.target.value)}/>
+                    <ModalInput type="password" placeholder="Пароль" value={password} onChange={e => setPassword(e.target.value)}/>
+                    <ModalInput type="password" placeholder="Повторите пароль" value={repeatPassword} onChange={e => setRepeatPassword(e.target.value)}/>
+                    
+                    <StyledButton buttonStyle={ButtonStyle.Primary} classes={styles.margin_top__big}>
                         <Link href="/">Зарегистрироваться</Link>
-                    </button>
+                    </StyledButton>
                 </form>
                 </div>
             </div>

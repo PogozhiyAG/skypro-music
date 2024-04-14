@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./FilterItem.module.css";
 import { FilterItemHookResult } from "@/hooks/useFilterItem";

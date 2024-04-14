@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 import styles from "./PlaylistItem.module.css";
 import cn from 'classnames'
