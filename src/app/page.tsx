@@ -34,6 +34,7 @@ export default function Home() {
   const {tracks, loadTracks} = useContext(DataContext);
   const [filteredTracks, setFilteredTracks] = useState<TrackInfo[]>([]);
   const [searchText, setSearchText] = useState<string>('');
+  const [currentTrack, setCurrentTrack] = useState<TrackInfo | null>(null);
   
   const playlistFilterAlbum = useFilterItem<TrackInfo, string>({
     dataSet: tracks,
@@ -148,7 +149,7 @@ export default function Home() {
               </div>
               <div className={cn(styles.content__playlist, styles.playlist)}>
 
-                {filteredTracks.map(t => <PlaylistItem key={t.id} track={t}/>)}
+                {filteredTracks.map(t => <PlaylistItem key={t.id} track={t} onClick={() => setCurrentTrack(t)}/>)}
               </div>
             </div>
           </div>
@@ -156,7 +157,7 @@ export default function Home() {
           <SideBar/>
         </main>
 
-        <Player/>
+        <Player currentTrack={currentTrack} autoPlay={true}/>
       </div>
     </div>
   );
