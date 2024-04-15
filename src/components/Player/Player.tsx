@@ -16,6 +16,7 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
   const audioRef = useRef<HTMLAudioElement>(null);  
   const [isPaused, setIsPaused] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState<number>(0.5);
 
   const syncStatus = () => setIsPaused(audioRef.current?.paused ?? true);
 
@@ -69,6 +70,12 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
     }
   }, []);
 
+
+  useEffect(() => {
+    if (audioRef.current) {
+        audioRef.current.volume = volume;
+    }
+  }, [volume]);
   
 
   const authorAndAlbum = currentTrack ? `${currentTrack.author} / ${currentTrack.album}` : '';
@@ -77,7 +84,13 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
   return (
       <div className={styles.bar}>
         
-        <audio ref={audioRef} style={{display: 'none'}} src={currentTrack?.track_file} autoPlay={autoPlay ?? false} controls></audio>
+        <audio 
+          ref={audioRef} 
+          style={{display: 'none'}} 
+          src={currentTrack?.track_file} 
+          autoPlay={autoPlay ?? false}           
+          controls>          
+        </audio>
 
         <div className={styles.bar__content}>
           
@@ -169,7 +182,7 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
 
             </div>
 
-            <VolumeBar/>
+            <VolumeBar value={volume} onChange={(e) => setVolume(Number(e.target.value))}/>
           </div>
         </div>
     </div>
