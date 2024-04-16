@@ -272,3 +272,6 @@
   }
   
   
+  .player__btnSvg_active {    
+     stroke: #d9d9d9
+  }

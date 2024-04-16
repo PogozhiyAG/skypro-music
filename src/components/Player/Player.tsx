@@ -1,5 +1,4 @@
 "use client"
-import Link from "next/link";
 import styles from "./Player.module.css";
 import cn from 'classnames'
 import { VolumeBar } from "../VolumeBar/VolumeBar";
@@ -16,40 +15,49 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
   const audioRef = useRef<HTMLAudioElement>(null);  
   const [isPaused, setIsPaused] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
-  const [volume, setVolume] = useState<number>(0.5);
-
-  const syncStatus = () => setIsPaused(audioRef.current?.paused ?? true);
-
-  const setAudioCurrentTime = (value: number) => {
-    if(audioRef?.current){
-      audioRef.current.currentTime = value
-    }
-  }
-    
-  useEffect(() => {
-    syncStatus();
-  }, []);
-
+  const [volume, setVolume] = useState<number>(0.5);    
+  const isRepeatRef = useRef<boolean>(false);
+  const [_render, _setRender] = useState<Date>();
+  
+  
+  //player commands
   const play = () => audioRef?.current?.play();
   const pause = () => audioRef?.current?.pause();
+
+
+  //state maintenance
+  const toggleIsRepeat = () => {
+    isRepeatRef.current = !isRepeatRef.current;
+    _setRender(new Date);
+  }
+
+  const syncStatus = () => setIsPaused(audioRef.current?.paused ?? true);  
  
-
-
+  
+  //player event handlers
   const audioTimeupdate = (e) => {
     syncStatus();
     setCurrentTime(e.currentTarget.currentTime);
   }
+
   const audioPlay = () => {
     syncStatus();
   }
+
   const audioPause = () => {
     syncStatus();
   }
-  const audioEnded = () => {
+
+  const audioEnded = () => {    
     syncStatus();
+    
+    if(isRepeatRef.current){      
+      play();
+    }
   }
 
 
+  //effects
   useEffect(() => {
     if(!audioRef.current){
       return;
@@ -72,15 +80,35 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
 
 
   useEffect(() => {
-    if (audioRef.current) {
-        audioRef.current.volume = volume;
+    if(!audioRef.current){
+      return;
     }
-  }, [volume]);
-  
 
+    audioRef.current.volume = volume;
+  }, [volume]);
+
+
+  //utils
+  const setAudioCurrentTime = (value: number) => {
+    if(audioRef?.current){
+      audioRef.current.currentTime = value
+    }
+  }  
+
+  const underConstruction = () => alert('Пока не реализовано');
+
+
+  //data
   const authorAndAlbum = currentTrack ? `${currentTrack.author} / ${currentTrack.album}` : '';
   const duration = audioRef.current?.duration || 0;
 
+  const classes = {
+    buttons: {
+      repeat: cn(styles.player__btnRepeatSvg, {[styles.player__btnSvg_active]: isRepeatRef.current})
+    }
+  }
+
+  
   return (
       <div className={styles.bar}>
         
@@ -104,7 +132,7 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
           <div className={styles.bar__playerBlock}>
             <div className={cn(styles.bar__player, styles.player)}>
               <div className={styles.player__controls}>
-                <div className={styles.player__btnPrev}>
+                <div className={styles.player__btnPrev} onClick={underConstruction}>
                   <svg className={styles.player__btnPrevSvg}>
                     <use xlinkHref="img/icon/sprite.svg#icon-prev" />
                   </svg>
@@ -132,17 +160,17 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
 
                 
 
-                <div className={styles.player__btnNext}>
+                <div className={styles.player__btnNext} onClick={underConstruction}>
                   <svg className={styles.player__btnNextSvg}>
                     <use xlinkHref="img/icon/sprite.svg#icon-next" />
                   </svg>
                 </div>
-                <div className={cn(styles.player__btnRepeat, styles._btnIcon)}>
-                  <svg className={styles.player__btnRepeatSvg}>
+                <div className={cn(styles.player__btnRepeat, styles._btnIcon)} onClick={() => toggleIsRepeat()}>
+                  <svg className={classes.buttons.repeat}>
                     <use xlinkHref="img/icon/sprite.svg#icon-repeat" />
                   </svg>
                 </div>
-                <div className={cn(styles.player__btnShuffle, styles._btnIcon)}>
+                <div className={cn(styles.player__btnShuffle, styles._btnIcon)} onClick={underConstruction}>
                   <svg className={styles.player__btnShuffleSvg}>
                     <use xlinkHref="img/icon/sprite.svg#icon-shuffle" />
                   </svg>
