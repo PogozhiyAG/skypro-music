@@ -16,8 +16,9 @@ export type FilterItemValue<F> = {
 
 
 export interface FilterItemHookResult<T, F extends string | number > {
+    options: FilterItemOptions<T, F>,
     values: FilterItemValue<F>[], 
-    isOpen: boolean,
+    isOpen: boolean,    
     setIsOpen: Dispatch<SetStateAction<boolean>>   
     updateValues:  () => void,
     isFit: (item: T) => boolean,
@@ -80,8 +81,9 @@ export const useFilterItem = <T, F extends string | number >(options: FilterItem
     }
 
     return {
+        options,
         values,
-        isOpen, 
+        isOpen,         
         setIsOpen,
         updateValues,
         isFit,

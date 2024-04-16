@@ -1,4 +1,7 @@
 
+.filter__caption_container {
+    position: relative; 
+}
 
 .filter__caption {
     font-style: normal;
@@ -21,6 +24,19 @@
     border-color:  #D9B6FF;
 }
 
+.filter__caption_count{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    min-width: 25px;
+    color: #fff;
+    background-color: #AD61FF;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50%;
+}
 
 
 .dropdown_container{    

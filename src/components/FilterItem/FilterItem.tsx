@@ -21,12 +21,19 @@ export const FilterItem = <T, F extends string | number >(options: FilterItemPro
         options.filterItem.setIsOpen(!options.filterItem.isOpen);
     }
     
-    const hasSelection =  options.filterItem.values.filter(v => v.checked).length > 0;
-    const filterCaptionClasses = cn(styles.filter__caption, hasSelection ? styles.filter__caption_active : '');
+    const selectionCount =  options.filterItem.values.filter(v => v.checked).length;
+    const filterCaptionClasses = cn(styles.filter__caption, selectionCount > 0 ? styles.filter__caption_active : '');
 
     return (
         <div>
-            <div className={filterCaptionClasses} onClick={handleCaptionClick}>{options.caption}</div>
+            <div className={styles.filter__caption_container} onClick={handleCaptionClick}>
+                <div className={filterCaptionClasses}>{options.caption}</div>
+                {
+                        options.filterItem.options.multiple 
+                    &&  selectionCount > 0
+                    &&  <div className={styles.filter__caption_count}>{selectionCount}</div>
+                }
+            </div>
             {
                 options.filterItem.isOpen &&
                 <div className={styles.dropdown_container}>
