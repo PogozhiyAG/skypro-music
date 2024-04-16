@@ -1,6 +1,4 @@
 "use client"
-import Link from "next/link";
-import Image from "next/image";
 import styles from "./page.module.css";
 import cn from 'classnames'
 import { TrackInfo } from "@/types/TrackInfo";
@@ -29,7 +27,7 @@ const releaseDateSortOptions: DateSortType[] = [
 
 
 export default function Home() { 
-  const {tracks, loadTracks} = useContext(DataContext);
+  const {tracks, loadTracks} = useContext(DataContext)!;
   const [filteredTracks, setFilteredTracks] = useState<TrackInfo[]>([]);
   const [searchText, setSearchText] = useState<string>('');
   const [currentTrack, setCurrentTrack] = useState<TrackInfo | null>(null);
