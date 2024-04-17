@@ -22,7 +22,7 @@ export const FilterItem = <T, F extends string | number >(options: FilterItemPro
     }
     
     const selectionCount =  options.filterItem.values.filter(v => v.checked).length;
-    const filterCaptionClasses = cn(styles.filter__caption, selectionCount > 0 ? styles.filter__caption_active : '');
+    const filterCaptionClasses = cn(styles.filter__caption, {[styles.filter__caption_active]: options.filterItem.isOpen});
 
     return (
         <div>

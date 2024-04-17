@@ -21,8 +21,8 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
   
   
   //player commands
-  const play = () => audioRef?.current?.play();
-  const pause = () => audioRef?.current?.pause();
+  const play = () => audioRef.current?.play();
+  const pause = () => audioRef.current?.pause();
 
 
   //state maintenance
@@ -35,9 +35,9 @@ export const Player: React.FC<PlayerProps> = ({currentTrack, autoPlay}) => {
  
   
   //player event handlers
-  const audioTimeupdate = (e) => {
+  const audioTimeupdate = () => {
     syncStatus();
-    setCurrentTime(e.currentTarget.currentTime);
+    setCurrentTime(audioRef.current!.currentTime);
   }
 
   const audioPlay = () => {

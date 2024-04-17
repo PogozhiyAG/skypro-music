@@ -56,7 +56,8 @@ export default function Home() {
       const work = async () => {
           try{
               await loadTracks();
-          } catch(error: any){
+          } catch(e: unknown) {
+              const error = e as Error;
               alert(`Не удалось загрузить треки: ${error.message}`)
           }
       }
