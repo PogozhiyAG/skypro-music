@@ -7,10 +7,14 @@ import { formatDuration } from "@/utils";
 
 
 export interface PlaylistItemProps {
-    track: TrackInfo
+    track: TrackInfo,
+    onClick?: () => void
 }
 
-export const PlaylistItem: React.FC<PlaylistItemProps> = ({track}) => {
+export const PlaylistItem: React.FC<PlaylistItemProps> = ({
+    track, 
+    onClick = () => {}
+}) => {
     
     const formattedDuration = formatDuration(track.duration_in_seconds);
 
@@ -23,10 +27,8 @@ export const PlaylistItem: React.FC<PlaylistItemProps> = ({track}) => {
                         <use xlinkHref="img/icon/sprite.svg#icon-note" />
                     </svg>
                     </div>
-                    <div className={styles.track__titleText}>
-                    <Link className={styles.track__titleLink} href="/">
+                    <div className={styles.track__titleText} onClick={onClick}>
                         {track.name}
-                    </Link>
                     </div>
                 </div>
                 <div className={styles.track__author}>

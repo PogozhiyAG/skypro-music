@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export interface FilterItemOptions<T, F> {
     dataSet: T[],    
     valueFunction: (item: T) => F,
     formatFunction?: (value: F) => string,
     sortFunction?: (a: FilterItemValue<F>, b: FilterItemValue<F>) => number
+    multiple?: boolean
 }
 
 export type FilterItemValue<F> = {
@@ -15,9 +16,13 @@ export type FilterItemValue<F> = {
 
 
 export interface FilterItemHookResult<T, F extends string | number > {
-    values: FilterItemValue<F>[],
+    options: FilterItemOptions<T, F>,
+    values: FilterItemValue<F>[], 
+    isOpen: boolean,    
+    setIsOpen: Dispatch<SetStateAction<boolean>>   
     updateValues:  () => void,
-    isFit: (item: T) => boolean
+    isFit: (item: T) => boolean,
+    handleItemClick: (item: FilterItemValue<F>) => void
 }
 
 
@@ -25,6 +30,7 @@ export type FilterItemHook<T, F extends string | number > = (options: FilterItem
 
 export const useFilterItem = <T, F extends string | number >(options: FilterItemOptions<T, F>): FilterItemHookResult<T, F> => {
     const [values, setValues] = useState<FilterItemValue<F>[]>([]);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const updateValues = () => setValues([...values]);
 
@@ -64,9 +70,23 @@ export const useFilterItem = <T, F extends string | number >(options: FilterItem
         return false;
     }
 
+    const handleItemClick = (item: FilterItemValue<F>) => {
+        item.checked = !item.checked;
+        if(!options.multiple){
+            values
+                .filter(i => i !== item)
+                .forEach(i => i.checked = false);
+        }
+        updateValues();
+    }
+
     return {
+        options,
         values,
+        isOpen,         
+        setIsOpen,
         updateValues,
-        isFit
+        isFit,
+        handleItemClick
     };
 }

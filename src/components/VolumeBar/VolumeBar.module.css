@@ -40,9 +40,23 @@
   
   .volume__progress {
     width: 109px;
+    display: flex;    
   }
   
-  .volume__progressLine {
+
+  .volume__progressLine {    
+    height: 2px;
     width: 109px;
+    outline: none;  
+    -webkit-appearance: none;
   }
   
+  .volume__progressLine::-webkit-slider-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: solid 2px #fff;
+    -webkit-appearance: none;
+    cursor: ew-resize;
+    background: #1A1A1A;
+  }

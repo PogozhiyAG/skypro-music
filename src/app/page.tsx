@@ -1,6 +1,4 @@
 "use client"
-import Link from "next/link";
-import Image from "next/image";
 import styles from "./page.module.css";
 import cn from 'classnames'
 import { TrackInfo } from "@/types/TrackInfo";
@@ -28,46 +26,47 @@ const releaseDateSortOptions: DateSortType[] = [
 ];
 
 
-export default function Home() {
-  const [errorMessage, setErrorMessage] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const {tracks, loadTracks} = useContext(DataContext);
+export default function Home() { 
+  const {tracks, loadTracks} = useContext(DataContext)!;
   const [filteredTracks, setFilteredTracks] = useState<TrackInfo[]>([]);
   const [searchText, setSearchText] = useState<string>('');
+  const [currentTrack, setCurrentTrack] = useState<TrackInfo | null>(null);
   
   const playlistFilterAlbum = useFilterItem<TrackInfo, string>({
     dataSet: tracks,
     valueFunction: track => track.author,
-    sortFunction: (a, b) => a.value.localeCompare(b.value)
+    sortFunction: (a, b) => a.value.localeCompare(b.value),
+    multiple: true,
   });
 
   const playlistReleaseDateSort = useFilterItem<DateSortType, DateSortType>({
     dataSet: releaseDateSortOptions,
-    valueFunction: option => option,        
+    valueFunction: option => option, 
+    multiple: false       
   });
 
   const playlistFilterGenre = useFilterItem<TrackInfo, string>({
     dataSet: tracks,
     valueFunction: track => track.genre,
-    sortFunction: (a, b) => a.value.localeCompare(b.value)
+    sortFunction: (a, b) => a.value.localeCompare(b.value),
+    multiple: true,
   });
 
   useEffect(() => {
       const work = async () => {
           try{
               await loadTracks();
-          } catch(error){
-              setErrorMessage(error)
+          } catch(e: unknown) {
+              const error = e as Error;
+              alert(`Не удалось загрузить треки: ${error.message}`)
           }
-          
-          setIsLoading(false);
       }
 
       work();        
   }, []);
 
 
-  const isSearchTextComplaint = (track: TrackInfo) => {
+  const isSearchTextSatisfies = (track: TrackInfo) => {
     if(!searchText) {
       return true;
     }
@@ -85,7 +84,7 @@ export default function Home() {
     const filtered = tracks.filter(t => 
          playlistFilterAlbum.isFit(t)      
       && playlistFilterGenre.isFit(t)
-      && isSearchTextComplaint(t)
+      && isSearchTextSatisfies(t)
     );
 
     const sortType = playlistReleaseDateSort.values.find(v => v.checked);
@@ -104,6 +103,12 @@ export default function Home() {
     tracks
   ]);
 
+
+  const filterCaptionClick = () => {
+    playlistFilterAlbum.setIsOpen(false);
+    playlistReleaseDateSort.setIsOpen(false);
+    playlistFilterGenre.setIsOpen(false);
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -130,9 +135,9 @@ export default function Home() {
             
             <div className={cn(styles.centerblock__filter, styles.filter)}>
               <div className={styles.filter__title}>Искать по:</div>
-              <FilterItem filterItem={playlistFilterAlbum} caption="исполнителю" multiple/>
-              <FilterItem filterItem={playlistReleaseDateSort} caption="году выпуска" />
-              <FilterItem filterItem={playlistFilterGenre} caption="жанру" multiple/>
+              <FilterItem filterItem={playlistFilterAlbum} caption="исполнителю" captionClick={filterCaptionClick}/>
+              <FilterItem filterItem={playlistReleaseDateSort} caption="году выпуска" captionClick={filterCaptionClick}/>
+              <FilterItem filterItem={playlistFilterGenre} caption="жанру" captionClick={filterCaptionClick}/>
             </div>
 
             <div className={cn(styles.centerblock__content, styles.content__playlist)}>
@@ -148,7 +153,7 @@ export default function Home() {
               </div>
               <div className={cn(styles.content__playlist, styles.playlist)}>
 
-                {filteredTracks.map(t => <PlaylistItem key={t.id} track={t}/>)}
+                {filteredTracks.map(t => <PlaylistItem key={t.id} track={t} onClick={() => setCurrentTrack(t)}/>)}
               </div>
             </div>
           </div>
@@ -156,7 +161,7 @@ export default function Home() {
           <SideBar/>
         </main>
 
-        <Player/>
+        <Player currentTrack={currentTrack} autoPlay={true}/>
       </div>
     </div>
   );

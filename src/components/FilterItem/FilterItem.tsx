@@ -1,64 +1,61 @@
 "use client"
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./FilterItem.module.css";
-import { FilterItemHookResult } from "@/hooks/useFilterItem";
+import { FilterItemHookResult, FilterItemValue } from "@/hooks/useFilterItem";
 import cn from "classnames"
 
 export type FilterItemProps<T, F extends string | number > = {
     filterItem: FilterItemHookResult<T, F>
-    caption: string,
-    multiple?: boolean
+    caption: string,    
+    captionClick?: () => void
 }
 
-export const FilterItem = <T, F extends string | number >({filterItem, caption, multiple}: FilterItemProps<T, F>) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const selectRef = useRef<HTMLSelectElement>(null);
-
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const options = event.target.options;
-
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            const item = filterItem.values[i];
-
-            if(!multiple){
-                option.selected = event.target.selectedIndex == i;
-            }
-
-            item.checked = option.selected;
-        }
-
-        filterItem.updateValues();
-    };
+export const FilterItem = <T, F extends string | number >(options: FilterItemProps<T, F>) => {
+    
+    const handleItemClick = (item: FilterItemValue<F>) => {
+        options.filterItem.handleItemClick(item);
+    }
 
     const handleCaptionClick = () => {
-        setIsOpen(!isOpen);
+        options.captionClick && options.captionClick();
+        options.filterItem.setIsOpen(!options.filterItem.isOpen);
     }
-
-    useEffect(() => {
-        if(isOpen){
-            selectRef.current?.focus();
-        }
-    }, [isOpen])
-
-    const handleSelectBlur = () => {
-        setIsOpen(false);
-    }
-
-    const selectedValues = filterItem.values.filter(v => v.checked).map(v => v.value);
-    const hasSelection =  filterItem.values.filter(v => v.checked).length > 0;
-    const filterCaptionClasses = cn(styles.filter__caption, hasSelection ? styles.filter__caption_active : '');
+    
+    const selectionCount =  options.filterItem.values.filter(v => v.checked).length;
+    const filterCaptionClasses = cn(styles.filter__caption, {[styles.filter__caption_active]: options.filterItem.isOpen});
 
     return (
         <div>
-            <div className={filterCaptionClasses} onClick={handleCaptionClick}>{caption}</div>
+            <div className={styles.filter__caption_container} onClick={handleCaptionClick}>
+                <div className={filterCaptionClasses}>{options.caption}</div>
+                {
+                        options.filterItem.options.multiple 
+                    &&  selectionCount > 0
+                    &&  <div className={styles.filter__caption_count}>{selectionCount}</div>
+                }
+            </div>
             {
-                isOpen &&
+                options.filterItem.isOpen &&
                 <div className={styles.dropdown_container}>
-                    <div className={styles.select_container}>
-                        <select ref={selectRef} value={selectedValues} className={styles.select} multiple onChange={handleSelectChange} onBlur={handleSelectBlur}>            
-                            {filterItem.values.map(v => <option key={v.value} value={v.value} >{v.caption}</option>)}                
-                        </select>
+                    <div className={styles.list_container}>
+                        <div className={styles.scroll_container}>
+                            <ul className={styles.list}>
+                                {
+                                    options.filterItem.values.map(v => {
+                                        const classes = cn(styles.list_item, {[styles.list_item_active]: v.checked})
+
+                                        return (
+                                            <li 
+                                                key={v.value} 
+                                                value={v.value} 
+                                                className={classes} 
+                                                onClick={() => handleItemClick(v)}>{v.caption}
+                                            </li>
+                                        )
+                                    })
+                                } 
+                            </ul>
+                        </div>
                     </div>
                 </div>
             }

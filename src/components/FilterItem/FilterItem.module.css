@@ -1,4 +1,7 @@
 
+.filter__caption_container {
+    position: relative; 
+}
 
 .filter__caption {
     font-style: normal;
@@ -21,49 +24,72 @@
     border-color:  #D9B6FF;
 }
 
+.filter__caption_count{
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    min-width: 25px;
+    color: #fff;
+    background-color: #AD61FF;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+    padding: 5px;
+    border-radius: 50%;
+}
 
 
 .dropdown_container{    
-    position: relative;
+    position: relative;     
 }
 
-.select_container {
+.list_container {
     position: absolute; 
     background: #313131;
     border-radius: 10px;
     padding: 20px;
-    margin-top: 10px;
+    margin: 10px;
+    
 }
 
-.select {     
+.scroll_container{
+    height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.list {     
     background: transparent;
     color: #ffffff;
-    border: none;
-    outline: none;
-    height: 200px;
-    overflow-y: auto;    
 }
 
-.select option {
-    margin: 20px 10px;
+.list_item {
+    margin-bottom: 20px;
+    text-wrap: nowrap;
+    cursor: pointer;
 }
 
-.select::-webkit-scrollbar{
+.list_item:hover{
+    color: #D9B6FF;
+}
+
+.list_item_active {
+    color: #B672FF;
+    text-decoration: underline;
+}
+
+
+.scroll_container::-webkit-scrollbar{
     width: 4px;
 }
 
-.select::-webkit-scrollbar-track {    
+.scroll_container::-webkit-scrollbar-track {    
     background-color: #4B4949;
-    ;
 }
 
-.select::-webkit-scrollbar-thumb {
+.scroll_container::-webkit-scrollbar-thumb {
     background-color: #ffffff;    
 }
 
 
-.select option:checked {     
-    background-color: transparent !important;
-    color: red !important;
-}
 
